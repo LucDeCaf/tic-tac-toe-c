@@ -69,7 +69,7 @@ int play_game()
     int x, y;
 
     printf("--- TIC TAC TOE ---\n");
-    printf("Note: Enter moves in the format: 'x;y', eg. '2;3'\n\n");
+    printf("Note: Enter moves in the format: 'row;col', eg. '2;3'\n\n");
     printf("Type 1: Play game (human vs. human)\n");
     printf("Type 2: Exit\n");
 
