@@ -12,6 +12,4 @@ Feel free to send pull requests, change the code, use it yourself, or correct me
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
--- or --
-LICENSE.txt file
+[MIT](https://choosealicense.com/licenses/mit/) or <i>LICENSE.txt</i>
