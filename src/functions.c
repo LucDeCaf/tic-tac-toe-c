@@ -2,6 +2,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+const int WIN_STATES[] = {
+    {{0, 0}, {1, 0}, {2, 0}},
+    {{0, 1}, {1, 1}, {2, 1}},
+    {{0, 2}, {1, 2}, {2, 2}},
+
+    {{0, 0}, {0, 1}, {0, 2}},
+    {{1, 0}, {1, 1}, {1, 2}},
+    {{2, 0}, {2, 1}, {2, 2}},
+
+    {{0, 0}, {1, 1}, {2, 2}},
+    {{2, 0}, {1, 1}, {0, 2}},
+};
+
 void print_board(const int board[3][3])
 {
     char output[] = "- - -";
@@ -30,22 +43,14 @@ int get_winner(const int board[3][3])
         3: Draw
     */
     int winner = 0;
-    int spaces_checked = 0;
     int can_be_draw = 1;
 
     for (int i = 0; i < 3; i++)
     {
         for (int j = 0; j < 3; j++)
         {
-            /*
-                Win logic goes here
+            
 
-                If a winner is found, the loop will break early and spaces_checked
-                will never reach its max value of 9; therefore the only possibilities
-                there are either a draw or no winner yet.
-            */
-
-            spaces_checked++;
             if (!board[i][j]) {
                 can_be_draw = 0;
             }
