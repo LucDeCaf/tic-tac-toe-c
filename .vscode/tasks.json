@@ -1,0 +1,49 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "shell",
+      "label": "Build functions",
+      "command": "gcc -c functions.c -o bin/functions.o",
+      "options": {
+        "cwd": "${workspaceFolder}/src"
+      },
+      "group": "build"
+    },
+    {
+      "type": "shell",
+      "label": "Build main",
+      "command": "gcc -c main.c -o bin/main.o",
+      "options": {
+        "cwd": "${workspaceFolder}/src"
+      },
+      "group": "build"
+    },
+    {
+      "type": "shell",
+      "label": "Link",
+      "command": "gcc functions.o main.o -o main",
+      "options": {
+        "cwd": "${workspaceFolder}/src/bin"
+      },
+      "group": "build"
+    },
+    {
+      "label": "Run main",
+      "type": "process",
+      "command": "./main",
+      "options": {
+        "cwd": "${workspaceFolder}/src/bin"
+      }
+    },
+    {
+      "label": "Run",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "dependsOrder": "sequence",
+      "dependsOn": ["Build functions", "Build main", "Link", "Run main"]
+    }
+  ]
+}
