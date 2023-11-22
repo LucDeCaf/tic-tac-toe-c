@@ -3,6 +3,14 @@
   "tasks": [
     {
       "type": "shell",
+      "label": "Make bin folder",
+      "command": "mkdir -p bin",
+      "options": {
+        "cwd": "${workspaceFolder}/src"
+      }
+    },
+    {
+      "type": "shell",
       "label": "Build functions",
       "command": "gcc -c functions.c -o bin/functions.o",
       "options": {
@@ -43,7 +51,13 @@
         "isDefault": true
       },
       "dependsOrder": "sequence",
-      "dependsOn": ["Build functions", "Build main", "Link", "Run main"]
+      "dependsOn": [
+        "Make bin folder",
+        "Build functions",
+        "Build main",
+        "Link",
+        "Run main"
+      ]
     }
   ]
 }
