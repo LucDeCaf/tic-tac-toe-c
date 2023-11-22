@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-const int WIN_STATES[] = {
+const int WIN_STATES[8][3][2] = {
     {{0, 0}, {1, 0}, {2, 0}},
     {{0, 1}, {1, 1}, {2, 1}},
     {{0, 2}, {1, 2}, {2, 2}},
@@ -44,16 +44,52 @@ int get_winner(const int board[3][3])
     */
     int winner = 0;
     int can_be_draw = 1;
+    int can_win;
+    int prev_tile;
+    int row, col;
+    int i, j;
 
-    for (int i = 0; i < 3; i++)
-    {
-        for (int j = 0; j < 3; j++)
-        {
-            
+    for (i = 0; i < 8; i++) {
+        can_win = 1;
+        prev_tile = 0;
 
-            if (!board[i][j]) {
-                can_be_draw = 0;
+        for (j = 0; j < 3; j++) {
+            row = WIN_STATES[i][j][0];
+            col = WIN_STATES[i][j][1];
+
+            if (!prev_tile) {
+                prev_tile = board[row][col];
             }
+
+            // // Debugging info because built-in debuggers are hard
+
+            // printf("\n\t-- START DEBUGGING --\n\n");
+            // printf("i: %d\n", i);
+            // printf("j: %d\n", j);
+            // printf("can_win: %d\n", can_win);
+            // printf("row: %d\n", row);
+            // printf("col: %d\n", col);
+            // printf("prev_tile: %d\n", prev_tile);
+            // printf("board[row][col]: %d\n", board[row][col]);
+            // printf("\n\t-- END DEBUGGING --\n\n");
+
+            // If the current tile is empty, skip this win state and disallow draws
+            if (!board[row][col]) {
+                can_be_draw = 0;
+                can_win = 0;
+                break;
+            }
+
+            // If the current tile's value does not match the previous tile's value, skip this win state            
+            if (board[row][col] != prev_tile) {
+                can_win = 0;
+                break;
+            }
+        }
+
+        if (can_win) {
+            winner = prev_tile;
+            break;
         }
     }
 
@@ -69,7 +105,6 @@ int play_game()
     int x, y;
 
     printf("--- TIC TAC TOE ---\n");
-    printf("Note: Enter moves in the format: 'row;col', eg. '2;3'\n\n");
     printf("Type 1: Play game (human vs. human)\n");
     printf("Type 2: Exit\n");
 
@@ -89,10 +124,13 @@ int play_game()
         printf("--- TIC TAC TOE ---\n");
         print_board(board);
 
-        printf("Enter your move in the format 'x;y' or enter 0 to exit\n");
-        scanf(" %d;%d", &x, &y);
+        printf("Enter the row or enter 0 to exit\n");
+        scanf(" %d", &x);
 
-        if (x == 0)
+        printf("Enter the column or enter 0 to exit\n");
+        scanf(" %d", &y);
+
+        if (x == 0 || y == 0)
         {
             return 0;
         }
